@@ -1,4 +1,28 @@
-//package unionfind;
+/******************************************************************************
+ *  Compilation:  javac UF.java
+ *  Execution:    java UF < input.txt
+ *  Dependencies: StdIn.java StdOut.java
+ *  Data files:   https://algs4.cs.princeton.edu/15uf/tinyUF.txt
+ *                https://algs4.cs.princeton.edu/15uf/mediumUF.txt
+ *                https://algs4.cs.princeton.edu/15uf/largeUF.txt
+ *
+ *  Weighted quick-union by rank with path compression by halving.
+ *
+ *  % java UF < tinyUF.txt
+ *  4 3
+ *  3 8
+ *  6 5
+ *  9 4
+ *  2 1
+ *  5 0
+ *  7 2
+ *  6 1
+ *  2 components
+ *
+ * History
+ *      20210113 First implements
+ ******************************************************************************/
+
 import java.util.Vector;
 
 public class UF {
@@ -66,7 +90,6 @@ public class UF {
     public int count() {
         Vector<Integer> v = new Vector<Integer>(0);
         for (int datum : data) {
-            StdOut.println(datum);
             if (!v.contains(datum)) {
                 v.add(datum);
             }
