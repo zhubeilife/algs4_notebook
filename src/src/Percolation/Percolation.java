@@ -68,8 +68,8 @@ public class Percolation {
             if (row == 1) {
                 uf.union(getUFIndex(row, col), ufTopIndex);
             }
-            if ((col == size) && (isFull(row, col))) {
-               isPercolation = true;
+            if ((row == size) && (isFull(row, col))) {
+                isPercolation = true;
             }
         }
     }
@@ -96,6 +96,14 @@ public class Percolation {
 
     // does the system percolate?
     public boolean percolates() {
+        if (isPercolation) return true;
+
+        for (int j = 1; j < size + 1; j++) {
+            if (isFull(size, j)) {
+                isPercolation = true;
+                return true;
+            }
+        }
         return isPercolation;
     }
 
