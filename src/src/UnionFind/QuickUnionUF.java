@@ -21,7 +21,7 @@ public class QuickUnionUF {
 
     public void union(int p, int q) {
         if (root(p) == root(q)) return;
-        id[root(p)] = q;
+        id[root(p)] = root(q);
         count--;
     }
 
