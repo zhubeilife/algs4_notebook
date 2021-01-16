@@ -68,7 +68,7 @@ public class Percolation {
             if (row == 1) {
                 uf.union(getUFIndex(row, col), ufTopIndex);
             }
-            if ((row == size) && (isFull(row, col))) {
+            if ((col == size) && (isFull(row, col))) {
                isPercolation = true;
             }
         }

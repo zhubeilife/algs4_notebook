@@ -4,21 +4,9 @@ import edu.princeton.cs.algs4.StdStats;
 
 public class PercolationStats {
 
+    private static final double CONFIDENCE_95 = 1.96;
     private final int size;
     private final double[] thresholdSamples;
-    private static final double CONFIDENCE_95 = 1.96;
-
-    private double doPercolation(int n) {
-        Percolation per = new Percolation(n);
-
-        while (!per.percolates()) {
-            int row = StdRandom.uniform(size) + 1;
-            int col = StdRandom.uniform(size) + 1;
-            per.open(row, col);
-        }
-
-        return (double) per.numberOfOpenSites() / (size * size);
-    }
 
     // perform independent trials on an n-by-n grid
     public PercolationStats(int n, int trials) {
@@ -32,6 +20,18 @@ public class PercolationStats {
         for (int i = 0; i < size; i++) {
             thresholdSamples[i] = doPercolation(size);
         }
+    }
+
+    private double doPercolation(int n) {
+        Percolation per = new Percolation(n);
+
+        while (!per.percolates()) {
+            int row = StdRandom.uniform(size) + 1;
+            int col = StdRandom.uniform(size) + 1;
+            per.open(row, col);
+        }
+
+        return (double) per.numberOfOpenSites() / (size * size);
     }
 
     // sample mean of percolation threshold
