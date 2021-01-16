@@ -5,23 +5,9 @@ public class Percolation {
     private final int size;
     private int openSites;
     private boolean[][] sites;
-    private WeightedQuickUnionUF uf;
-    private int ufTopIndex;
-    private int ufBottomIndex;
-
-    private boolean checkRange(int n) {
-        return (n >= 1) && (n <= size);
-    }
-
-    private boolean checkPose(int row, int col) {
-        return checkRange(row) && checkRange(col);
-    }
-
-    private void checkPoseThrow(int row, int col) {
-        if(!checkPose(row, col)) {
-            throw new IllegalArgumentException("Range is not right");
-        }
-    }
+    private boolean isPercolation = false;
+    private final WeightedQuickUnionUF uf;
+    private final int ufTopIndex;
 
     // creates n-by-n grid, with all sites initially blocked
     public Percolation(int n) {
@@ -36,9 +22,22 @@ public class Percolation {
                 sites[i][j] = false;
             }
         }
-        uf = new WeightedQuickUnionUF(n *n + 2);
+        uf = new WeightedQuickUnionUF(n *n + 1);
         ufTopIndex = n * n;
-        ufBottomIndex = n * n + 1;
+    }
+
+    private boolean checkRange(int n) {
+        return (n >= 1) && (n <= size);
+    }
+
+    private boolean checkPose(int row, int col) {
+        return checkRange(row) && checkRange(col);
+    }
+
+    private void checkPoseThrow(int row, int col) {
+        if (!checkPose(row, col)) {
+            throw new IllegalArgumentException("Range is not right");
+        }
     }
 
     private int getUFIndex(int row, int col) {
@@ -69,8 +68,8 @@ public class Percolation {
             if (row == 1) {
                 uf.union(getUFIndex(row, col), ufTopIndex);
             }
-            if (row == size) {
-                uf.union(getUFIndex(row, col), ufBottomIndex);
+            if ((row == size) && (isFull(row, col))) {
+               isPercolation = true;
             }
         }
     }
@@ -97,7 +96,7 @@ public class Percolation {
 
     // does the system percolate?
     public boolean percolates() {
-        return uf.find(ufTopIndex) == uf.find(ufBottomIndex);
+        return isPercolation;
     }
 
     // test client (optional)
