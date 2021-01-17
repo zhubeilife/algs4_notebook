@@ -15,9 +15,9 @@ public class PercolationStats {
         }
 
         size = n;
-        thresholdSamples = new double[n];
+        thresholdSamples = new double[trials];
 
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < trials; i++) {
             thresholdSamples[i] = doPercolation(size);
         }
     }
@@ -31,7 +31,10 @@ public class PercolationStats {
             per.open(row, col);
         }
 
-        return (double) per.numberOfOpenSites() / (size * size);
+        double threshold = per.numberOfOpenSites();
+        threshold /= size * size;
+
+        return threshold;
     }
 
     // sample mean of percolation threshold
@@ -46,7 +49,7 @@ public class PercolationStats {
 
     // low endpoint of 95% confidence interval
     public double confidenceLo() {
-        return mean() -  CONFIDENCE_95* stddev() / Math.sqrt(size);
+        return mean() -  CONFIDENCE_95 * stddev() / Math.sqrt(size);
     }
 
     // high endpoint of 95% confidence interval
@@ -58,6 +61,8 @@ public class PercolationStats {
     public static void main(String[] args) {
         int size = Integer.parseInt(args[0]);
         int trials = Integer.parseInt(args[1]);
+
+        StdOut.println(size + " " + trials);
 
         PercolationStats stats = new PercolationStats(size, trials);
         StdOut.println("mean                    = " + stats.mean());
