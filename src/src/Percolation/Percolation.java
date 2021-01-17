@@ -1,3 +1,10 @@
+/**
+ * 7st submit refer to use two uf to solve this questions
+ * https://nancyyihao.github.io/2017/12/24/Coursera-Algorithm-Part-One-Percolation/
+ *
+ */
+
+
 import edu.princeton.cs.algs4.StdOut;
 import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 
@@ -7,7 +14,9 @@ public class Percolation {
     private boolean[][] sites;
     private boolean isPercolation = false;
     private final WeightedQuickUnionUF uf;
+    private final WeightedQuickUnionUF ufPer;
     private final int ufTopIndex;
+    private final int ufBottomIndex;
 
     // creates n-by-n grid, with all sites initially blocked
     public Percolation(int n) {
@@ -23,7 +32,9 @@ public class Percolation {
             }
         }
         uf = new WeightedQuickUnionUF(n *n + 1);
+        ufPer = new WeightedQuickUnionUF(n *n + 2);
         ufTopIndex = n * n;
+        ufBottomIndex = n * n + 1;
     }
 
     private boolean checkRange(int n) {
@@ -50,6 +61,7 @@ public class Percolation {
 
         if (checkPose(surroundRow, surroundCol) && isOpen(surroundRow, surroundCol)) {
             uf.union(getUFIndex(row, col), getUFIndex(surroundRow, surroundCol));
+            ufPer.union(getUFIndex(row, col), getUFIndex(surroundRow, surroundCol));
         }
     }
 
@@ -67,9 +79,10 @@ public class Percolation {
 
             if (row == 1) {
                 uf.union(getUFIndex(row, col), ufTopIndex);
+                ufPer.union(getUFIndex(row, col), ufTopIndex);
             }
-            if ((row == size) && (isFull(row, col))) {
-                isPercolation = true;
+            if (row == size) {
+                ufPer.union(getUFIndex(row, col), ufBottomIndex);
             }
         }
     }
@@ -96,15 +109,7 @@ public class Percolation {
 
     // does the system percolate?
     public boolean percolates() {
-        if (isPercolation) return true;
-
-        for (int j = 1; j < size + 1; j++) {
-            if (isFull(size, j)) {
-                isPercolation = true;
-                return true;
-            }
-        }
-        return isPercolation;
+       return ufPer.find(ufTopIndex) == ufPer.find(ufBottomIndex);
     }
 
     // test client (optional)
