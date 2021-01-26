@@ -10,25 +10,15 @@ public class BinarySearch {
 
         if (key < a[lo] || key > a[hi]) return -1;
 
-        while (lo < hi) {
+        while (lo <= hi) {
             int mid = (hi - lo) / 2 + lo;
-            if (key < a[mid]) {
-                hi = mid;
-            }
-            else if (key > a[mid]) {
-                lo = mid + 1;
-            }
-            else if (key == a[mid]) {
-                return mid;
-            }
+
+            if      (key < a[mid]) hi = mid - 1;
+            else if (key > a[mid]) lo = mid + 1;
+            else return mid;
         }
 
-        if (key == a[hi]) {
-            return hi;
-        }
-        else {
-            return -1;
-        }
+        return -1;
     }
 
     public static void main(String[] args) {
@@ -41,7 +31,8 @@ public class BinarySearch {
         StdOut.println(Arrays.toString(allowlist));
         while (!StdIn.isEmpty()) {
             int key = StdIn.readInt();
-            StdOut.println("The index is " + BinarySearch.indexOf(allowlist, key));
+            int index =  BinarySearch.indexOf(allowlist, key);
+            if (index != -1) StdOut.println(index);
         }
     }
 
