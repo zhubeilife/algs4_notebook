@@ -6,7 +6,7 @@
 // there are three ways
 // 1- brute force
 // 2- sorting and binary search
-// 3- hashing
+// 3- hashing ---> also for quick search
 
 
 public class TwoSumFast {
