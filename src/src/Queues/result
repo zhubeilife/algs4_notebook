@@ -9,11 +9,11 @@ SpotBugs:     PASSED
 PMD:          PASSED
 Checkstyle:   PASSED
 
-Correctness:  38/49 tests passed
-Memory:       118/123 tests passed
+Correctness:  30/49 tests passed
+Memory:       119/123 tests passed
 Timing:       158/193 tests passed
 
-Aggregate score: 82.50%
+Aggregate score: 72.78%
 [ Compilation: 5%, API: 5%, Style: 0%, Correctness: 60%, Timing: 10%, Memory: 20% ]
 
 
@@ -21,9 +21,9 @@ ASSESSMENT DETAILS
 
 The following files were submitted:
 ----------------------------------
-4.1K Feb 15 12:52 Deque.java
- 444 Feb 15 12:52 Permutation.java
-4.0K Feb 15 12:52 RandomizedQueue.java
+4.3K Feb 15 13:40 Deque.java
+ 444 Feb 15 13:40 Permutation.java
+4.0K Feb 15 13:40 RandomizedQueue.java
 
 
 ********************************************************************************
@@ -146,101 +146,80 @@ Test 2: check random calls to addFirst(), removeFirst(), and isEmpty()
 Test 3: check random calls to addFirst(), removeLast(), and isEmpty()
   *    5 random calls (0.8, 0.0, 0.0, 0.1, 0.1, 0.0, 0.0)
   *   50 random calls (0.8, 0.0, 0.0, 0.1, 0.1, 0.0, 0.0)
-    - failed on operation 12 of 50
+    - failed on operation 10 of 50
 
     java.lang.NullPointerException
 
-    Deque.removeLast(Deque.java:104)
+    Deque.removeLast(Deque.java:108)
     TestDeque.checkRandomIntermixedOperations(TestDeque.java:114)
     TestDeque.test3(TestDeque.java:615)
     TestDeque.main(TestDeque.java:1039)
 
+    - sequence of operations was:
+         Deque<Integer> deque = new Deque<Integer>()
+         deque.addFirst(1)
+         deque.isEmpty()         ==> false
+         deque.addFirst(3)
+         deque.addFirst(4)
+         deque.addFirst(5)
+         deque.addFirst(6)
+         deque.addFirst(7)
+         deque.removeLast()      ==> 1
+         deque.addFirst(9)
+         deque.removeLast()
 
   *  500 random calls (0.8, 0.0, 0.0, 0.1, 0.1, 0.0, 0.0)
     - failed on operation 22 of 500
 
     java.lang.NullPointerException
 
-    Deque.removeLast(Deque.java:104)
+    Deque.removeLast(Deque.java:108)
     TestDeque.checkRandomIntermixedOperations(TestDeque.java:114)
     TestDeque.test3(TestDeque.java:616)
     TestDeque.main(TestDeque.java:1039)
 
 
   * 1000 random calls (0.8, 0.0, 0.0, 0.1, 0.1, 0.0, 0.0)
-    - failed on operation 11 of 1000
+    - failed on operation 38 of 1000
 
     java.lang.NullPointerException
 
-    Deque.removeLast(Deque.java:104)
+    Deque.removeLast(Deque.java:108)
     TestDeque.checkRandomIntermixedOperations(TestDeque.java:114)
     TestDeque.test3(TestDeque.java:617)
     TestDeque.main(TestDeque.java:1039)
 
-    - sequence of operations was:
-         Deque<Integer> deque = new Deque<Integer>()
-         deque.addFirst(1)
-         deque.addFirst(2)
-         deque.addFirst(3)
-         deque.addFirst(4)
-         deque.addFirst(5)
-         deque.addFirst(6)
-         deque.addFirst(7)
-         deque.isEmpty()         ==> false
-         deque.addFirst(9)
-         deque.addFirst(10)
-         deque.removeLast()
 
   *    5 random calls (0.1, 0.0, 0.0, 0.8, 0.1, 0.0, 0.0)
-    - failed on operation 5 of 5
+  *   50 random calls (0.1, 0.0, 0.0, 0.8, 0.1, 0.0, 0.0)
+  *  500 random calls (0.1, 0.0, 0.0, 0.8, 0.1, 0.0, 0.0)
+    - failed on operation 11 of 500
+    - student   removeLast() = 8
+    - reference removeLast() = 9
+    - sequence of operations was:
+         Deque<Integer> deque = new Deque<Integer>()
+         deque.isEmpty()         ==> true
+         deque.isEmpty()         ==> true
+         deque.addFirst(3)
+         deque.removeLast()      ==> 3
+         deque.addFirst(5)
+         deque.isEmpty()         ==> false
+         deque.removeLast()      ==> 5
+         deque.addFirst(8)
+         deque.addFirst(9)
+         deque.removeLast()      ==> 8
+         deque.removeLast()      ==> 8
 
-    java.lang.NullPointerException
-
-    Deque.removeLast(Deque.java:104)
-    TestDeque.checkRandomIntermixedOperations(TestDeque.java:114)
-    TestDeque.test3(TestDeque.java:618)
-    TestDeque.main(TestDeque.java:1039)
-
+  * 1000 random calls (0.1, 0.0, 0.0, 0.8, 0.1, 0.0, 0.0)
+    - failed on operation 4 of 1000
+    - student   removeLast() = 1
+    - reference removeLast() = 2
     - sequence of operations was:
          Deque<Integer> deque = new Deque<Integer>()
          deque.addFirst(1)
          deque.addFirst(2)
-         deque.addFirst(3)
-         deque.addFirst(4)
-         deque.removeLast()
-
-  *   50 random calls (0.1, 0.0, 0.0, 0.8, 0.1, 0.0, 0.0)
-    - failed on operation 19 of 50
-
-    java.lang.NullPointerException
-
-    Deque.removeLast(Deque.java:104)
-    TestDeque.checkRandomIntermixedOperations(TestDeque.java:114)
-    TestDeque.test3(TestDeque.java:619)
-    TestDeque.main(TestDeque.java:1039)
-
-
-  *  500 random calls (0.1, 0.0, 0.0, 0.8, 0.1, 0.0, 0.0)
-    - failed on operation 30 of 500
-
-    java.lang.NullPointerException
-
-    Deque.removeLast(Deque.java:104)
-    TestDeque.checkRandomIntermixedOperations(TestDeque.java:114)
-    TestDeque.test3(TestDeque.java:620)
-    TestDeque.main(TestDeque.java:1039)
-
-
-  * 1000 random calls (0.1, 0.0, 0.0, 0.8, 0.1, 0.0, 0.0)
-    - failed on operation 120 of 1000
-
-    java.lang.NullPointerException
-
-    Deque.removeLast(Deque.java:104)
-    TestDeque.checkRandomIntermixedOperations(TestDeque.java:114)
-    TestDeque.test3(TestDeque.java:621)
-    TestDeque.main(TestDeque.java:1039)
-
+         deque.removeLast()      ==> 1
+         deque.removeLast()      ==> 1
 
 ==> FAILED
 
@@ -258,145 +237,236 @@ Test 4: check random calls to addLast(), removeLast(), and isEmpty()
 Test 5: check random calls to addLast(), removeFirst(), and isEmpty()
   *    5 random calls (0.0, 0.8, 0.1, 0.0, 0.1, 0.0, 0.0)
   *   50 random calls (0.0, 0.8, 0.1, 0.0, 0.1, 0.0, 0.0)
+    - failed on operation 15 of 50
+    - student   removeFirst() = 1
+    - reference removeFirst() = 2
+
   *  500 random calls (0.0, 0.8, 0.1, 0.0, 0.1, 0.0, 0.0)
+    - failed on operation 28 of 500
+    - student   removeFirst() = 1
+    - reference removeFirst() = 2
+
   * 1000 random calls (0.0, 0.8, 0.1, 0.0, 0.1, 0.0, 0.0)
+    - failed on operation 13 of 1000
+    - student   removeFirst() = 3
+    - reference removeFirst() = 4
+
   *    5 random calls (0.0, 0.1, 0.8, 0.0, 0.1, 0.0, 0.0)
   *   50 random calls (0.0, 0.1, 0.8, 0.0, 0.1, 0.0, 0.0)
   *  500 random calls (0.0, 0.1, 0.8, 0.0, 0.1, 0.0, 0.0)
+    - failed on operation 16 of 500
+    - student   removeFirst() = 13
+    - reference removeFirst() = 14
+
   * 1000 random calls (0.0, 0.1, 0.8, 0.0, 0.1, 0.0, 0.0)
-==> passed
+    - failed on operation 33 of 1000
+    - student   removeFirst() = 30
+    - reference removeFirst() = 31
+
+==> FAILED
 
 Test 6: check random calls to addFirst(), removeFirst(), and iterator()
   *    5 random calls (0.8, 0.0, 0.1, 0.0, 0.0, 0.0, 0.1)
   *   50 random calls (0.8, 0.0, 0.1, 0.0, 0.0, 0.0, 0.1)
+    - failed on operation 3 of 50
+    - student iterator() returns wrong set of values
+    - reference iterator() = [2, 1]
+    - student   iterator() = [2, 1, 1]
+    - number of integers    returned by student   iterator() = 3
+    - number of null values returned by student   iterator() = 0
+    - number of integers    returned by reference iterator() = 2
+    - number of null values returned by reference iterator() = 0
+
+    - sequence of operations was:
+         Deque<Integer> deque = new Deque<Integer>()
+         deque.addFirst(1)
+         deque.addFirst(2)
+         deque.iterator()    ==> [2, 1, 1]
+
   *  500 random calls (0.8, 0.0, 0.1, 0.0, 0.0, 0.0, 0.1)
+    - failed on operation 6 of 500
+    - student iterator() returns wrong set of values
+    - reference iterator() = [5, 4, 3, 2, 1]
+    - student   iterator() = [5, 4, 3, 2, 1, 1]
+    - number of integers    returned by student   iterator() = 6
+    - number of null values returned by student   iterator() = 0
+    - number of integers    returned by reference iterator() = 5
+    - number of null values returned by reference iterator() = 0
+
+    - sequence of operations was:
+         Deque<Integer> deque = new Deque<Integer>()
+         deque.addFirst(1)
+         deque.addFirst(2)
+         deque.addFirst(3)
+         deque.addFirst(4)
+         deque.addFirst(5)
+         deque.iterator()    ==> [5, 4, 3, 2, 1, 1]
+
   * 1000 random calls (0.8, 0.0, 0.1, 0.0, 0.0, 0.0, 0.1)
+    - failed on operation 10 of 1000
+    - student iterator() returns wrong set of values
+    - reference iterator() = [9, 8, 7, 6, 5, 4, 3]
+    - student   iterator() = [9, 8, 7, 6, 5, 4, 3, 3]
+    - number of integers    returned by student   iterator() = 8
+    - number of null values returned by student   iterator() = 0
+    - number of integers    returned by reference iterator() = 7
+    - number of null values returned by reference iterator() = 0
+
+    - sequence of operations was:
+         Deque<Integer> deque = new Deque<Integer>()
+         deque.addFirst(1)
+         deque.removeFirst()     ==> 1
+         deque.addFirst(3)
+         deque.addFirst(4)
+         deque.addFirst(5)
+         deque.addFirst(6)
+         deque.addFirst(7)
+         deque.addFirst(8)
+         deque.addFirst(9)
+         deque.iterator()    ==> [9, 8, 7, 6, 5, 4, 3, 3]
+
   *    5 random calls (0.1, 0.0, 0.8, 0.0, 0.0, 0.0, 0.1)
   *   50 random calls (0.1, 0.0, 0.8, 0.0, 0.0, 0.0, 0.1)
   *  500 random calls (0.1, 0.0, 0.8, 0.0, 0.0, 0.0, 0.1)
+    - failed on operation 16 of 500
+    - student iterator() returns wrong set of values
+    - reference iterator() = [15]
+    - student   iterator() = [15, 15]
+    - number of integers    returned by student   iterator() = 2
+    - number of null values returned by student   iterator() = 0
+    - number of integers    returned by reference iterator() = 1
+    - number of null values returned by reference iterator() = 0
+
+
   * 1000 random calls (0.1, 0.0, 0.8, 0.0, 0.0, 0.0, 0.1)
-==> passed
+    - failed on operation 22 of 1000
+    - student iterator() returns wrong set of values
+    - reference iterator() = [21]
+    - student   iterator() = [21, 21]
+    - number of integers    returned by student   iterator() = 2
+    - number of null values returned by student   iterator() = 0
+    - number of integers    returned by reference iterator() = 1
+    - number of null values returned by reference iterator() = 0
+
+
+==> FAILED
 
 Test 7: check random calls to all methods except iterator()
   *    5 random calls (0.3, 0.3, 0.1, 0.1, 0.1, 0.1, 0.0)
   *   50 random calls (0.3, 0.3, 0.1, 0.1, 0.1, 0.1, 0.0)
   *  500 random calls (0.3, 0.3, 0.1, 0.1, 0.1, 0.1, 0.0)
-    - failed on operation 9 of 500
-
-    java.lang.NullPointerException
-
-    Deque.removeLast(Deque.java:104)
-    TestDeque.checkRandomIntermixedOperations(TestDeque.java:114)
-    TestDeque.test7(TestDeque.java:679)
-    TestDeque.main(TestDeque.java:1051)
-
-    - sequence of operations was:
-         Deque<Integer> deque = new Deque<Integer>()
-         deque.addLast(1)
-         deque.addLast(2)
-         deque.size()            ==> 2
-         deque.size()            ==> 2
-         deque.addFirst(5)
-         deque.addFirst(6)
-         deque.removeLast()      ==> 2
-         deque.addFirst(8)
-         deque.removeLast()
-
   * 1000 random calls (0.3, 0.3, 0.1, 0.1, 0.1, 0.1, 0.0)
   *    5 random calls (0.1, 0.1, 0.3, 0.3, 0.1, 0.1, 0.0)
   *   50 random calls (0.1, 0.1, 0.3, 0.3, 0.1, 0.1, 0.0)
-    - failed on operation 16 of 50
-
-    java.lang.NullPointerException
-
-    Deque.removeLast(Deque.java:104)
-    TestDeque.checkRandomIntermixedOperations(TestDeque.java:114)
-    TestDeque.test7(TestDeque.java:682)
-    TestDeque.main(TestDeque.java:1051)
-
+    - failed on operation 39 of 50
+    - student   removeLast() = 28
+    - reference removeLast() = 32
 
   *  500 random calls (0.1, 0.1, 0.3, 0.3, 0.1, 0.1, 0.0)
-    - failed on operation 37 of 500
-
-    java.lang.NullPointerException
-
-    Deque.removeLast(Deque.java:104)
-    TestDeque.checkRandomIntermixedOperations(TestDeque.java:114)
-    TestDeque.test7(TestDeque.java:683)
-    TestDeque.main(TestDeque.java:1051)
-
+    - failed on operation 17 of 500
+    - student   removeLast() = 13
+    - reference removeLast() = 14
 
   * 1000 random calls (0.1, 0.1, 0.3, 0.3, 0.1, 0.1, 0.0)
-    - failed on operation 12 of 1000
-
-    java.lang.NullPointerException
-
-    Deque.removeLast(Deque.java:104)
-    TestDeque.checkRandomIntermixedOperations(TestDeque.java:114)
-    TestDeque.test7(TestDeque.java:684)
-    TestDeque.main(TestDeque.java:1051)
-
+    - failed on operation 60 of 1000
+    - student   removeFirst() = 25
+    - reference removeFirst() = 40
 
 ==> FAILED
 
 Test 8: check random calls to all methods, including iterator()
   *    5 random calls (0.2, 0.2, 0.1, 0.1, 0.1, 0.1, 0.2)
   *   50 random calls (0.2, 0.2, 0.1, 0.1, 0.1, 0.1, 0.2)
+    - failed on operation 9 of 50
+    - student iterator() returns wrong set of values
+    - reference iterator() = [5]
+    - student   iterator() = [5, 5]
+    - number of integers    returned by student   iterator() = 2
+    - number of null values returned by student   iterator() = 0
+    - number of integers    returned by reference iterator() = 1
+    - number of null values returned by reference iterator() = 0
+
+    - sequence of operations was:
+         Deque<Integer> deque = new Deque<Integer>()
+         deque.isEmpty()         ==> true
+         deque.size()            ==> 0
+         deque.size()            ==> 0
+         deque.addFirst(5)
+         deque.addLast(6)
+         deque.size()            ==> 2
+         deque.removeLast()      ==> 6
+         deque.iterator()    ==> [5, 5]
+
   *  500 random calls (0.2, 0.2, 0.1, 0.1, 0.1, 0.1, 0.2)
-    - failed on operation 53 of 500
-
-    java.lang.NullPointerException
-
-    Deque.removeLast(Deque.java:104)
-    TestDeque.checkRandomIntermixedOperations(TestDeque.java:114)
-    TestDeque.test8(TestDeque.java:694)
-    TestDeque.main(TestDeque.java:1054)
-
-
-  * 1000 random calls (0.2, 0.2, 0.1, 0.1, 0.1, 0.1, 0.2)
-  *    5 random calls (0.1, 0.1, 0.2, 0.2, 0.1, 0.1, 0.2)
-  *   50 random calls (0.1, 0.1, 0.2, 0.2, 0.1, 0.1, 0.2)
-    - failed on operation 31 of 50
-
-    java.lang.NullPointerException
-
-    Deque.removeLast(Deque.java:104)
-    TestDeque.checkRandomIntermixedOperations(TestDeque.java:114)
-    TestDeque.test8(TestDeque.java:697)
-    TestDeque.main(TestDeque.java:1054)
-
-
-  *  500 random calls (0.1, 0.1, 0.2, 0.2, 0.1, 0.1, 0.2)
-    - failed on operation 8 of 500
-
-    java.lang.NullPointerException
-
-    Deque.removeLast(Deque.java:104)
-    TestDeque.checkRandomIntermixedOperations(TestDeque.java:114)
-    TestDeque.test8(TestDeque.java:698)
-    TestDeque.main(TestDeque.java:1054)
+    - failed on operation 10 of 500
+    - student iterator() returns wrong set of values
+    - reference iterator() = [8, 6, 5, 3, 9]
+    - student   iterator() = [8, 6, 5, 1, 3, 9]
+    - number of integers    returned by student   iterator() = 6
+    - number of null values returned by student   iterator() = 0
+    - number of integers    returned by reference iterator() = 5
+    - number of null values returned by reference iterator() = 0
 
     - sequence of operations was:
          Deque<Integer> deque = new Deque<Integer>()
          deque.addLast(1)
+         deque.addLast(3)
+         deque.removeFirst()     ==> 1
+         deque.addFirst(5)
+         deque.addFirst(6)
+         deque.addFirst(8)
+         deque.addLast(9)
+         deque.iterator()    ==> [8, 6, 5, 1, 3, 9]
+
+  * 1000 random calls (0.2, 0.2, 0.1, 0.1, 0.1, 0.1, 0.2)
+    - failed on operation 14 of 1000
+    - student   removeLast() = 7
+    - reference removeLast() = 8
+
+  *    5 random calls (0.1, 0.1, 0.2, 0.2, 0.1, 0.1, 0.2)
+  *   50 random calls (0.1, 0.1, 0.2, 0.2, 0.1, 0.1, 0.2)
+    - failed on operation 12 of 50
+    - student iterator() returns wrong set of values
+    - reference iterator() = [10, 9]
+    - student   iterator() = [10, 9, 9]
+    - number of integers    returned by student   iterator() = 3
+    - number of null values returned by student   iterator() = 0
+    - number of integers    returned by reference iterator() = 2
+    - number of null values returned by reference iterator() = 0
+
+
+  *  500 random calls (0.1, 0.1, 0.2, 0.2, 0.1, 0.1, 0.2)
+    - failed on operation 10 of 500
+    - student iterator() returns wrong set of values
+    - reference iterator() = [8, 7, 9]
+    - student   iterator() = [8, 7, 7, 9]
+    - number of integers    returned by student   iterator() = 4
+    - number of null values returned by student   iterator() = 0
+    - number of integers    returned by reference iterator() = 3
+    - number of null values returned by reference iterator() = 0
+
+    - sequence of operations was:
+         Deque<Integer> deque = new Deque<Integer>()
+         deque.addLast(1)
+         deque.addFirst(2)
          deque.removeLast()      ==> 1
-         deque.size()            ==> 0
-         deque.addLast(4)
-         deque.iterator()    ==> [4]
-         deque.size()            ==> 1
+         deque.removeFirst()     ==> 2
          deque.addFirst(7)
-         deque.removeLast()
+         deque.addFirst(8)
+         deque.addLast(9)
+         deque.iterator()    ==> [8, 7, 7, 9]
 
   * 1000 random calls (0.1, 0.1, 0.2, 0.2, 0.1, 0.1, 0.2)
-    - failed on operation 99 of 1000
-
-    java.lang.NullPointerException
-
-    Deque.removeLast(Deque.java:104)
-    TestDeque.checkRandomIntermixedOperations(TestDeque.java:114)
-    TestDeque.test8(TestDeque.java:699)
-    TestDeque.main(TestDeque.java:1054)
-
+    - failed on operation 6 of 1000
+    - student   removeLast() = 3
+    - reference removeLast() = 4
+    - sequence of operations was:
+         Deque<Integer> deque = new Deque<Integer>()
+         deque.isEmpty()         ==> true
+         deque.addFirst(3)
+         deque.addFirst(4)
+         deque.removeLast()      ==> 3
+         deque.removeLast()      ==> 3
 
 ==> FAILED
 
@@ -412,31 +482,91 @@ Test 10: check whether two Deque objects can be created at the same time
 
 Test 11: check iterator() after n calls to addFirst()
   * n = 10
+    - number of student   entries = 11
+    - number of reference entries = 10
+
   * n = 50
-==> passed
+    - number of student   entries = 51
+    - number of reference entries = 50
+
+==> FAILED
 
 Test 12: check iterator() after each of m intermixed calls to
          addFirst(), addLast(), removeFirst(), and removeLast()
   * m = 20
+    - number of student   entries = 2
+    - number of reference entries = 1
+    - iterator() yields wrong entries after applying operation 1
+    - sequence of operations was:
+         Deque<Integer> deque = new Deque<Integer>()
+         deque.addFirst(1)
+
   * m = 50
+    - number of student   entries = 2
+    - number of reference entries = 1
+    - iterator() yields wrong entries after applying operation 1
+    - sequence of operations was:
+         Deque<Integer> deque = new Deque<Integer>()
+         deque.addLast(1)
+
   * m = 100
+    - number of student   entries = 2
+    - number of reference entries = 1
+    - iterator() yields wrong entries after applying operation 1
+    - sequence of operations was:
+         Deque<Integer> deque = new Deque<Integer>()
+         deque.addLast(1)
+
   * m = 1000
-==> passed
+    - number of student   entries = 2
+    - number of reference entries = 1
+    - iterator() yields wrong entries after applying operation 1
+    - sequence of operations was:
+         Deque<Integer> deque = new Deque<Integer>()
+         deque.addFirst(1)
+
+==> FAILED
 
 Test 13: create two nested iterators to same deque
   * n = 10
+    - failed on outer loop 0 and inner loop 1
+    - student   inner iterator returned 0
+    - reference inner iterator returned 1
+
   * n = 50
-==> passed
+    - failed on outer loop 0 and inner loop 1
+    - student   inner iterator returned 0
+    - reference inner iterator returned 1
+
+==> FAILED
 
 Test 14: create two parallel iterators to same deque
-==> passed
+    - failed on call 1 to next()
+    - student   iterator 1 next() = 0
+    - student   iterator 2 next() = 0
+    - reference iterator   next() = 1
+
+    - failed on call 1 to next()
+    - student   iterator 1 next() = 0
+    - student   iterator 2 next() = 0
+    - reference iterator   next() = 1
+
+==> FAILED
 
 Test 15: create an iterator and check calls to next() and hasNext()
   * 10 consecutive calls to hasNext() on a deque of size 10
   * 10 consecutive calls to next() on a deque of size 10
   * 50 random intermixed calls to next() and hasNext() on a deque of size 10
+    - failed on operation 16 of 50
+    - student   hasNext() = true
+    - reference hasNext() = false
+
   * 1000 random intermixed calls to next() and hasNext() on a deque of size 100
-==> passed
+    - failed on operation 214 of 1000
+    - student   hasNext() = true
+    - reference hasNext() = false
+
+==> FAILED
 
 Test 16: create Deque objects of different parameterized types
 ==> passed
@@ -445,13 +575,16 @@ Test 17: call addFirst() and addLast() with null argument
 ==> passed
 
 Test 18: check that remove() and next() throw the specified exceptions in iterator()
-==> passed
+    - fails to throw an exception when calling next() when iterator is exhausted
+    - should throw a java.util.NoSuchElementException
+
+==> FAILED
 
 Test 19: call iterator() when the deque is empty
 ==> passed
 
 
-Total: 16/19 tests passed!
+Total: 8/19 tests passed!
 
 
 ================================================================
@@ -1435,184 +1568,7 @@ Test 2: check that the maximum size of any Deque or RandomizedQueue object
     Permutation.main(Permutation.java:13)
     MemoryOfPermutation.checkMaxSize(MemoryOfPermutation.java:63)
     MemoryOfPermutation.test2(MemoryOfPermutation.java:176)
-    MemoryOfPermutation.main(MemoryOfPermutation.java:199)
-
-==> FAILED
-
-Test 3 (bonus): check that maximum size of any or Deque or RandomizedQueue object
-                created is equal to k
-  * filename = tale.txt, n = 138653, k = 5
-
-    java.util.NoSuchElementException: randomized queue underflow
-
-    RandomizedQueue.dequeue(RandomizedQueue.java:142)
-    Permutation.main(Permutation.java:13)
-    MemoryOfPermutation.checkMaxSizeBonus(MemoryOfPermutation.java:116)
-    MemoryOfPermutation.test3(MemoryOfPermutation.java:184)
-    MemoryOfPermutation.main(MemoryOfPermutation.java:200)
-
-  * filename = tale.txt, n = 138653, k = 50
-
-    java.util.NoSuchElementException: randomized queue underflow
-
-    RandomizedQueue.dequeue(RandomizedQueue.java:142)
-    Permutation.main(Permutation.java:13)
-    MemoryOfPermutation.checkMaxSizeBonus(MemoryOfPermutation.java:116)
-    MemoryOfPermutation.test3(MemoryOfPermutation.java:185)
-    MemoryOfPermutation.main(MemoryOfPermutation.java:200)
-
-  * filename = tale.txt, n = 138653, k = 500
-
-    java.util.NoSuchElementException: randomized queue underflow
-
-    RandomizedQueue.dequeue(RandomizedQueue.java:142)
-    Permutation.main(Permutation.java:13)
-    MemoryOfPermutation.checkMaxSizeBonus(MemoryOfPermutation.java:116)
-    MemoryOfPermutation.test3(MemoryOfPermutation.java:186)
-    MemoryOfPermutation.main(MemoryOfPermutation.java:200)
-
-  * filename = tale.txt, n = 138653, k = 5000
-
-    java.util.NoSuchElementException: randomized queue underflow
-
-    RandomizedQueue.dequeue(RandomizedQueue.java:142)
-    Permutation.main(Permutation.java:13)
-    MemoryOfPermutation.checkMaxSizeBonus(MemoryOfPermutation.java:116)
-    MemoryOfPermutation.test3(MemoryOfPermutation.java:187)
-    MemoryOfPermutation.main(MemoryOfPermutation.java:200)
-
-  * filename = tale.txt, n = 138653, k = 50000
-
-    java.util.NoSuchElementException: randomized queue underflow
-
-    RandomizedQueue.dequeue(RandomizedQueue.java:142)
-    Permutation.main(Permutation.java:13)
-    MemoryOfPermutation.checkMaxSizeBonus(MemoryOfPermutation.java:116)
-    MemoryOfPermutation.test3(MemoryOfPermutation.java:188)
-    MemoryOfPermutation.main(MemoryOfPermutation.java:200)
-
-==> FAILED
-
-Total: 0/2 tests passed!
-
-
-================================================================
-
-
-
-********************************************************************************
-*  MEMORY
-********************************************************************************
-
-Analyzing memory of Deque
-*-----------------------------------------------------------
-For tests 1-4, the maximum amount of memory allowed for a Deque
-containing n items is 48n + 192.
-
-Running 48 total tests.
-
-Test 1a-1i: total memory usage after inserting n items,
-            where n is a power of 2
-
-                 n        bytes
-----------------------------------------------------------
-=> passed       32         1576         
-=> passed       64         3112         
-=> passed      128         6184         
-=> passed      256        12328         
-=> passed      512        24616         
-=> passed     1024        49192         
-=> passed     2048        98344         
-=> passed     4096       196648         
-=> passed     8192       393256         
-==> 9/9 tests passed
-
-Memory: 48.00 n + 40.00   (R^2 = 1.000)
-
-
-Test 2a-2i: Total memory usage after inserting n items,
-            when n is one more than a power of 2.
-
-                 n        bytes
-----------------------------------------------------------
-=> passed       33         1624         
-=> passed       65         3160         
-=> passed      129         6232         
-=> passed      257        12376         
-=> passed      513        24664         
-=> passed     1025        49240         
-=> passed     2049        98392         
-=> passed     4097       196696         
-=> passed     8193       393304         
-==> 9/9 tests passed
-
-Memory: 48.00 n + 40.00   (R^2 = 1.000)
-
-
-Test 3a-3i: Total memory usage after inserting 2n-1 items, and then
-            deleting n-1 items, when n is one more than a power of 2.
-
-                 n        bytes
-----------------------------------------------------------
-=> passed       33         1624         
-=> passed       65         3160         
-=> passed      129         6232         
-=> passed      257        12376         
-=> passed      513        24664         
-=> passed     1025        49240         
-=> passed     2049        98392         
-=> passed     4097       196696         
-=> passed     8193       393304         
-==> 9/9 tests passed
-
-Memory: 48.00 n + 40.00   (R^2 = 1.000)
-
-
-Test 4a-4e: Total memory usage after inserting n items,
-            and then deleting all but one item
-            (should not grow with n or be too large of a constant).
-
-                 n        bytes
-----------------------------------------------------------
-=> passed       32           88         
-=> passed       64           88         
-=> passed      128           88         
-=> passed      256           88         
-=> passed      512           88         
-=> passed     1024           88         
-=> passed     2048           88         
-=> passed     4096           88         
-=> passed     8192           88         
-==> 9/9 tests passed
-
-Memory: 88.00   (R^2 = 1.000)
-
-
-Test 5a-5e: Total memory usage of iterator after inserting n items
-            (should not grow with n or be too large of a constant).
-
-                 n        bytes
-----------------------------------------------------------
-=> passed       32           32         
-=> passed       64           32         
-=> passed      128           32         
-=> passed      256           32         
-=> passed      512           32         
-=> passed     1024           32         
-=> passed     2048           32         
-=> passed     4096           32         
-=> passed     8192           32         
-==> 9/9 tests passed
-
-Memory: 32.00   (R^2 = 1.000)
-
-
-Test 6a: Insert n strings; delete them one at a time, checking for
-         loitering after each deletion. The probabilities of addFirst()
-         and addLast() are (p1, p2), respectively. The probabilities of
-         removeFirst() and removeLast() are (q1, q2), respectively.
-  * 100 random insertions (1.0, 0.0) and 100 random deletions (1.0, 0.0)
-  * 100 random insertions (1.0, 0.0) and 100 random deletions 
+    MemoryOfPermutation.main(Memory
 
 ...
 
