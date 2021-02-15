@@ -133,13 +133,13 @@ public class Deque<Item> implements Iterable<Item> {
         }
     }
 
-    public String toString() {
-        StringBuffer s = new StringBuffer();
-        for (Item item : this) {
-            s.append(item + " ");
-        }
-        return s.toString();
-    }
+//    public String toString() {
+//        StringBuilder s = new StringBuilder();
+//        for (Item item : this) {
+//            s.append(item + " ");
+//        }
+//        return s.toString();
+//    }
 
     // unit testing (required)
     public static void main(String[] args) {

@@ -1,3 +1,9 @@
+/*
+    1st-submit using StdRandom.shuffle(data, 0, n); for deque,
+        but it can't guarentee the must take constant amortized time
+    2ed-change to use generate random int and then replace it with the last one.
+ */
+
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import edu.princeton.cs.algs4.StdOut;
@@ -29,7 +35,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 
     private void resize(int newsize) {
         Item[] newdata = (Item[]) new Object[newsize];
-        for (int i = 0; i < n ; i++) {
+        for (int i = 0; i < n; i++) {
             newdata[i] = data[i];
         }
 
@@ -43,18 +49,28 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         data[n++] = item;
     }
 
+    private void swap(int order) {
+        if (order != (n-1)) {
+            Item last = data[n-1];
+            data[n-1] = data[order];
+            data[order] = last;
+        }
+    }
+
     // remove and return a random item
     public Item dequeue() {
         if (isEmpty()) throw new NoSuchElementException("man, come on");
-        StdRandom.shuffle(data, 0, n);
 
-        if ((n < data.length / 4) && (data.length != INIT_CAPACITY)) {
-            resize(data.length / 2);
-        }
+        int pick = StdRandom.uniform(n);
+        swap(pick);
 
         Item value = data[n-1];
         data[n-1] = null;
         n--;
+
+        if ((n < data.length / 4) && (data.length != INIT_CAPACITY)) {
+            resize(data.length / 2);
+        }
 
         return value;
     }
@@ -62,17 +78,18 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     // return a random item (but do not remove it)
     public Item sample() {
         if (isEmpty()) throw new NoSuchElementException("man, come on");
-        StdRandom.shuffle(data, 0, n);
-        return data[n-1];
+//        StdRandom.shuffle(data, 0, n);
+        int pick = StdRandom.uniform(n);
+        return data[pick];
     }
 
-    public String toString() {
-        StringBuffer s = new StringBuffer();
-        for (Item item : this) {
-            s.append(item + " ");
-        }
-        return s.toString();
-    }
+//    public String toString() {
+//        StringBuilder s = new StringBuilder();
+//        for (Item item : this) {
+//            s.append(item + " ");
+//        }
+//        return s.toString();
+//    }
 
     // return an independent iterator over items in random order
     public Iterator<Item> iterator() {
@@ -81,7 +98,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 
     private class RandomizedQueueIterator implements Iterator<Item> {
         private int nums;
-        private Item[] itdata;
+        private final Item[] itdata;
 
         public RandomizedQueueIterator() {
             nums = n;
@@ -93,8 +110,8 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
             StdRandom.shuffle(itdata);
         }
 
-        public boolean hasNext()  { return nums != 0;}
-        public void remove()      { throw new UnsupportedOperationException();}
+        public boolean hasNext()  { return nums != 0; }
+        public void remove()      { throw new UnsupportedOperationException(); }
 
         public Item next() {
             if (!hasNext()) throw new NoSuchElementException("ops");
