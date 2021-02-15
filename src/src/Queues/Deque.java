@@ -1,5 +1,7 @@
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import edu.princeton.cs.algs4.StdOut;
+import edu.princeton.cs.algs4.StdIn;
 
 public class Deque<Item> implements Iterable<Item> {
     private Node first;
@@ -34,7 +36,7 @@ public class Deque<Item> implements Iterable<Item> {
         if (item == null) throw new IllegalArgumentException("man, carefully!");
 
         Node oldfist = first;
-        // TODO give a construturer?
+        // TODO give a constructor?
         // then I can give default next = null
         first = new Node();
         first.item = item;
@@ -131,14 +133,32 @@ public class Deque<Item> implements Iterable<Item> {
         }
     }
 
+    public String toString() {
+        StringBuffer s = new StringBuffer();
+        for (Item item : this) {
+            s.append(item + " ");
+        }
+        return s.toString();
+    }
+
     // unit testing (required)
     public static void main(String[] args) {
         Deque<String> deque = new Deque<String>();
+
+        // Test as normal queue
         while (!StdIn.isEmpty()) {
             String item = StdIn.readString();
             if (!item.equals("-")) deque.addLast(item);
             else if (!deque.isEmpty()) StdOut.print(deque.removeFirst() + " ");
         }
         StdOut.println("(" + deque.size() + " left on deque)");
+
+        // Test when the deque goes from non-empty to empty and then non-empty
+        StdOut.println("now is " + deque);
+        deque.removeFirst();
+        deque.removeLast();
+        StdOut.println("now is " + deque);
+        deque.addFirst("hey");
+        StdOut.println("now is " + deque);
     }
 }
