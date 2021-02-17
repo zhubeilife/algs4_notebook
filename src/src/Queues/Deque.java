@@ -1,7 +1,12 @@
+/*
+    4st-not need the first.next = last, last.previous = first. just set the the same one
+ */
+
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import edu.princeton.cs.algs4.StdOut;
 import edu.princeton.cs.algs4.StdIn;
+import edu.princeton.cs.algs4.StdRandom;
 
 public class Deque<Item> implements Iterable<Item> {
     private Node first;
@@ -46,6 +51,7 @@ public class Deque<Item> implements Iterable<Item> {
         }
         else {
             first.next = oldfist;
+            oldfist.previous = first;
         }
         n++;
     }
@@ -150,13 +156,5 @@ public class Deque<Item> implements Iterable<Item> {
             else if (!deque.isEmpty()) StdOut.print(deque.removeFirst() + " ");
         }
         StdOut.println("(" + deque.size() + " left on deque)");
-
-        // Test when the deque goes from non-empty to empty and then non-empty
-        StdOut.println("now is " + deque);
-        deque.removeFirst();
-        deque.removeLast();
-        StdOut.println("now is " + deque);
-        deque.addFirst("hey");
-        StdOut.println("now is " + deque);
     }
 }
